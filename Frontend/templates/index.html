@@ -1,0 +1,226 @@
+{% extends "layout.html" %} {% block content %}
+<div class="main-container">
+  <div class="row">
+    <!-- Left Column: The Form -->
+    <div class="col-lg-7">
+      <h2 class="text-center mb-4">Cancellation Prediction Form</h2>
+      <form id="prediction-form" novalidate>
+        <!-- Booking Details -->
+        <h5 class="mb-3">Booking Details</h5>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="hotel">Hotel Type</label>
+            <select id="hotel" name="hotel" class="form-control" required>
+              <option value="1" selected>City Hotel</option>
+              <option value="0">Resort Hotel</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="arrival_date_month">Arrival Month</label>
+            <select
+              id="arrival_date_month"
+              name="arrival_date_month"
+              class="form-control"
+              required
+            >
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Sliders for large values -->
+        <div class="form-group">
+          <label
+            >Lead Time (days):
+            <span id="lead_time_value" class="slider-value"></span
+          ></label>
+          <input
+            type="range"
+            class="form-control-range"
+            id="lead_time"
+            name="lead_time"
+            min="0"
+            max="750"
+            value="50"
+            data-display="lead_time_value"
+          />
+        </div>
+        <div class="form-group">
+          <label
+            >Average Daily Rate (€):
+            <span id="adr_value" class="slider-value"></span
+          ></label>
+          <input
+            type="range"
+            class="form-control-range"
+            id="adr"
+            name="adr"
+            min="0"
+            max="500"
+            value="95"
+            step="0.5"
+            data-display="adr_value"
+          />
+        </div>
+        <div class="form-group col-md-6">
+            <label for="room_match">Got the room that Reserved</label>
+            <select id="room_match" name="room_match" class="form-control" required>
+              <option value="1" selected>Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>
+            <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="deposit_type">Deposite Type</label>
+            <select
+              id="deposit_type"
+              name="deposit_type"
+              class="form-control"
+              required
+            >
+              <option value="0">No Deposit</option>
+              <option value="1">Refundable</option>
+              <option value="2">Non Refund</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="is_repeated_guest">Repeated Guest</label>
+            <select id="is_repeated_guest" name="is_repeated_guest" class="form-control" required>
+              <option value="1" selected>Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>
+        <hr class="my-4" style="background-color: rgba(255, 255, 255, 0.2)" />
+
+        <!-- Guest & Stay Details -->
+        <h5 class="mb-3">Guest & Stay Details</h5>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="adults">Adults</label>
+            <input
+              type="number"
+              class="form-control"
+              id="adults"
+              name="adults"
+              value="2"
+              min="0"
+              required
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="children">Children</label>
+            <input
+              type="number"
+              class="form-control"
+              id="children"
+              name="children"
+              value="0"
+              min="0"
+              required
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="stays_in_weekend_nights">Weekend Nights</label>
+            <input
+              type="number"
+              class="form-control"
+              id="stays_in_weekend_nights"
+              value="1"
+              min="0"
+              required
+            />
+          </div>
+          <div class="form-group col-md-3">
+            <label for="stays_in_week_nights">Week Nights</label>
+            <input
+              type="number"
+              class="form-control"
+              id="stays_in_week_nights"
+              value="2"
+              min="0"
+              required
+            />
+          </div>
+        </div>
+        
+        <hr class="my-4" style="background-color: rgba(255, 255, 255, 0.2)" />
+
+        <!-- Booking Source -->
+        <h5 class="mb-3">Booking Source</h5>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="market_segment">Market Segment</label>
+            <select
+              id="market_segment"
+              name="market_segment"
+              class="form-control"
+              required
+            >
+              <option value="2">Online TA</option>
+              <option value="3">Offline TA/TO</option>
+              <option value="0">Direct</option>
+              <option value="5">Groups</option>
+              <option value="1">Corporate</option>
+              <option value="4">Complementary</option>
+              <option value="7">Aviation</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="distribution_channel">Distribution Channel</label>
+            <select
+              id="distribution_channel"
+              name="distribution_channel"
+              class="form-control"
+              required
+            >
+              <option value="2">TA/TO</option>
+              <option value="0">Direct</option>
+              <option value="1">Corporate</option>
+              <option value="4">GDS</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Hidden fields with default values - user doesn't need to see these -->
+        <input type="hidden" name="arrival_date_week_number" value="27" />
+        <input type="hidden" name="arrival_date_day_of_month" value="1" />
+        <input type="hidden" name="babies" value="0" />
+        <input type="hidden" name="meal" value="0" />
+        <input type="hidden" name="customer_type" value="0" />
+        <input type="hidden" name="is_repeated_guest" value="0" />
+        <input type="hidden" name="previous_cancellations" value="0" />
+        <input type="hidden" name="previous_bookings_not_canceled" value="0" />
+
+        <input type="hidden" name="agent" value="0" />
+        <input type="hidden" name="company" value="0" />
+        <input type="hidden" name="required_car_parking_spaces" value="0" />
+        <input type="hidden" name="total_of_special_requests" value="0" />
+
+        <button type="submit" class="btn btn-predict btn-lg btn-block mt-4">
+          Predict Cancellation
+        </button>
+      </form>
+    </div>
+
+    <!-- Right Column: The Prediction Result -->
+    <div class="col-lg-5 d-flex align-items-center justify-content-center">
+      <div id="result-box" class="result-box">
+        <img id="result-img" src="" alt="Prediction Status" />
+        <h3 id="result-text">Awaiting Prediction...</h3>
+        <p id="result-proba" class="lead"></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

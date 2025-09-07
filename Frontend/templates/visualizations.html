@@ -1,0 +1,162 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <h2>Exploratory Data Analysis (EDA)</h2>
+    <p class="lead">Visual insights from the hotel booking dataset.</p>
+</div>
+
+<div class="accordion" id="edaAccordion">
+
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Booking Confirmation vs. Cancellation
+                </button>
+            </h5>
+        </div>
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#edaAccordion">
+            <div class="card-body">
+                <img src="{{ url_for('static', filename='images/booking.png') }}" class="img-fluid" alt="Booking Plot">
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Market Segment Distribution
+                </button>
+            </h5>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#edaAccordion">
+            <div class="card-body">
+                <img src="{{ url_for('static', filename='images/market_distribution.png') }}" class="img-fluid" alt="Market Segment Distribution Plot">
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Booking Heatmap by Country
+                </button>
+            </h5>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#edaAccordion">
+            <div class="card-body">
+                <img src="{{ url_for('static', filename='images/map.png') }}" class="img-fluid" alt="Booking Map">
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingFour">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    Hotel Location vs. Cancellation Status
+                </button>
+            </h5>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#edaAccordion">
+            <div class="card-body">
+                <img src="{{ url_for('static', filename='images/location_canceled.png') }}" class="img-fluid" alt="Location & Cancellation Plot">
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingFive">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    Hotel Location vs. Previous Cancellations
+                </button>
+            </h5>
+        </div>
+        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#edaAccordion">
+            <div class="card-body">
+                <img src="{{ url_for('static', filename='images/location_previously_canceled.png') }}" class="img-fluid" alt="Location & Previously Cancellation Plot">
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingSix">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    Previous Cancellations vs. Current Cancellations
+                </button>
+            </h5>
+        </div>
+        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#edaAccordion">
+            <div class="card-body">
+                <img src="{{ url_for('static', filename='images/previous_cancel_location.png') }}" class="img-fluid" alt="Previously Cancellation & Cancellation Plot">
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingSeven">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                    Hotel Location vs. Deposit Type
+                </button>
+            </h5>
+        </div>
+        <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#edaAccordion">
+            <div class="card-body">
+                <img src="{{ url_for('static', filename='images/deposit_location.png') }}" class="img-fluid" alt="Location & Deposit Type Plot">
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingEight">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                    Deposit Type vs. Cancellation Status
+                </button>
+            </h5>
+        </div>
+        <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#edaAccordion">
+            <div class="card-body">
+                <img src="{{ url_for('static', filename='images/cancellation_deposit.png') }}" class="img-fluid" alt="Deposit Type & Cancellation Plot">
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingNine">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                    Lead Time vs. Cancellation Status
+                </button>
+            </h5>
+        </div>
+        <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#edaAccordion">
+            <div class="card-body">
+                <img src="{{ url_for('static', filename='images/cancel_lead_time.png') }}" class="img-fluid" alt="Lead Time Cancellation Plot">
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header" id="headingTen">
+            <h5 class="mb-0">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                    Market Segment vs. Cancellation Status
+                </button>
+            </h5>
+        </div>
+        <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#edaAccordion">
+            <div class="card-body">
+                <img src="{{ url_for('static', filename='images/market_segment.png') }}" class="img-fluid" alt="Market Segment Cancellation Plot">
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

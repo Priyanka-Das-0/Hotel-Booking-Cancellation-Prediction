@@ -1,0 +1,370 @@
+{% extends "layout.html" %} {% block content %}
+<div class="text-center">
+  <h2>Hotel Booking Cancellation Prediction</h2>
+  <p class="lead">
+    Fill in the booking details below to predict the likelihood of cancellation.
+  </p>
+</div>
+
+<div class="card card-body shadow-sm">
+  <form id="prediction-form" novalidate>
+    <!-- Booking Details Section -->
+    <h5 class="mb-3">Booking Details</h5>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="hotel">Hotel Type</label>
+        <select id="hotel" name="hotel" class="form-control" required>
+          <option value="1" selected>City Hotel</option>
+          <option value="0">Resort Hotel</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="lead_time">Lead Time (days)</label>
+        <input
+          type="number"
+          class="form-control"
+          id="lead_time"
+          name="lead_time"
+          placeholder="e.g., 7"
+          min="0"
+          required
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="arrival_date_month">Arrival Month</label>
+        <select
+          id="arrival_date_month"
+          name="arrival_date_month"
+          class="form-control"
+          required
+        >
+          <option value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="arrival_date_week_number">Week Number of Year</label>
+        <input
+          type="number"
+          class="form-control"
+          id="arrival_date_week_number"
+          name="arrival_date_week_number"
+          placeholder="e.g., 28"
+          min="1"
+          max="53"
+          required
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="arrival_date_day_of_month">Day of Month</label>
+        <input
+          type="number"
+          class="form-control"
+          id="arrival_date_day_of_month"
+          name="arrival_date_day_of_month"
+          placeholder="e.g., 15"
+          min="1"
+          max="31"
+          required
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="adr">Average Daily Rate (€)</label>
+        <input
+          type="number"
+          step="0.01"
+          class="form-control"
+          id="adr"
+          name="adr"
+          placeholder="e.g., 95.50"
+          min="0"
+          required
+        />
+      </div>
+    </div>
+    <hr />
+
+    <!-- Stay Details Section -->
+    <h5 class="mb-3">Stay Details</h5>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="stays_in_weekend_nights">Weekend Nights</label>
+        <input
+          type="number"
+          class="form-control"
+          id="stays_in_weekend_nights"
+          name="stays_in_weekend_nights"
+          placeholder="e.g., 2"
+          min="0"
+          required
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="stays_in_week_nights">Week Nights</label>
+        <input
+          type="number"
+          class="form-control"
+          id="stays_in_week_nights"
+          name="stays_in_week_nights"
+          placeholder="e.g., 5"
+          min="0"
+          required
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="meal">Meal Type</label>
+        <select id="meal" name="meal" class="form-control" required>
+          <option value="0">BB (Bed & Breakfast)</option>
+          <option value="1">FB (Full Board)</option>
+          <option value="2">HB (Half Board)</option>
+          <option value="3">SC (Self-Catering)</option>
+          <option value="4">Undefined</option>
+        </select>
+      </div>
+    </div>
+    <hr />
+
+    <!-- Guest Information Section -->
+    <h5 class="mb-3">Guest Information</h5>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="adults">Adults</label>
+        <input
+          type="number"
+          class="form-control"
+          id="adults"
+          name="adults"
+          placeholder="e.g., 2"
+          min="0"
+          required
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="children">Children</label>
+        <input
+          type="number"
+          class="form-control"
+          id="children"
+          name="children"
+          placeholder="e.g., 0"
+          min="0"
+          required
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="babies">Babies</label>
+        <input
+          type="number"
+          class="form-control"
+          id="babies"
+          name="babies"
+          placeholder="e.g., 0"
+          min="0"
+          required
+        />
+      </div>
+    </div>
+    <hr />
+
+    <!-- Booking Source & History Section -->
+    <h5 class="mb-3">Booking Source & History</h5>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="market_segment">Market Segment</label>
+        <select
+          id="market_segment"
+          name="market_segment"
+          class="form-control"
+          required
+        >
+          <option value="2">Online TA</option>
+          <option value="3">Offline TA/TO</option>
+          <option value="0">Direct</option>
+          <option value="5">Groups</option>
+          <option value="1">Corporate</option>
+          <option value="4">Complementary</option>
+          <option value="7">Aviation</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="distribution_channel">Distribution Channel</label>
+        <select
+          id="distribution_channel"
+          name="distribution_channel"
+          class="form-control"
+          required
+        >
+          <option value="2">TA/TO</option>
+          <option value="0">Direct</option>
+          <option value="1">Corporate</option>
+          <option value="4">GDS</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="customer_type">Customer Type</label>
+        <select
+          id="customer_type"
+          name="customer_type"
+          class="form-control"
+          required
+        >
+          <option value="0">Transient</option>
+          <option value="2">Transient-Party</option>
+          <option value="1">Contract</option>
+          <option value="3">Group</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="is_repeated_guest">Is Repeated Guest?</label>
+        <select
+          id="is_repeated_guest"
+          name="is_repeated_guest"
+          class="form-control"
+          required
+        >
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="previous_cancellations">Previous Cancellations</label>
+        <input
+          type="number"
+          class="form-control"
+          id="previous_cancellations"
+          name="previous_cancellations"
+          placeholder="e.g., 0"
+          min="0"
+          required
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="previous_bookings_not_canceled"
+          >Previous Non-Canceled</label
+        >
+        <input
+          type="number"
+          class="form-control"
+          id="previous_bookings_not_canceled"
+          name="previous_bookings_not_canceled"
+          placeholder="e.g., 0"
+          min="0"
+          required
+        />
+      </div>
+    </div>
+    <hr />
+
+    <!-- Other Details Section -->
+    <h5 class="mb-3">Other Details</h5>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="reserved_room_type">Reserved Room Type</label>
+        <select
+          id="reserved_room_type"
+          name="reserved_room_type"
+          class="form-control"
+          required
+        >
+          <option value="1">A</option>
+          <option value="2">D</option>
+          <option value="3">E</option>
+          <option value="5">F</option>
+          <option value="4">G</option>
+          <option value="8">B</option>
+          <option value="0">C</option>
+          <option value="6">H</option>
+          <option value="9">P</option>
+          <option value="7">L</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="deposit_type">Deposit Type</label>
+        <select
+          id="deposit_type"
+          name="deposit_type"
+          class="form-control"
+          required
+        >
+          <option value="0">No Deposit</option>
+          <option value="2">Non Refund</option>
+          <option value="1">Refundable</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="agent">Agent ID</label>
+        <input
+          type="number"
+          class="form-control"
+          id="agent"
+          name="agent"
+          placeholder="e.g., 9"
+          value="0"
+          min="0"
+          required
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="company">Company ID</label>
+        <input
+          type="number"
+          class="form-control"
+          id="company"
+          name="company"
+          placeholder="e.g., 40"
+          value="0"
+          min="0"
+          required
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="required_car_parking_spaces">Car Parking Spaces</label>
+        <input
+          type="number"
+          class="form-control"
+          id="required_car_parking_spaces"
+          name="required_car_parking_spaces"
+          placeholder="e.g., 0"
+          min="0"
+          required
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="total_of_special_requests">Special Requests</label>
+        <input
+          type="number"
+          class="form-control"
+          id="total_of_special_requests"
+          name="total_of_special_requests"
+          placeholder="e.g., 1"
+          min="0"
+          required
+        />
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">
+      Predict Cancellation
+    </button>
+  </form>
+</div>
+
+<!-- Prediction Result Area -->
+<div id="result-container" class="mt-4" style="display: none">
+  <h4>Prediction Result</h4>
+  <div id="result" class="alert">
+    <p id="prediction_text" class="mb-1 h5"></p>
+    <strong id="probability"></strong>
+  </div>
+</div>
+{% endblock %}
