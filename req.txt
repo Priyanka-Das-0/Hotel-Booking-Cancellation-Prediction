@@ -6,3 +6,4 @@ joblib
 Flask
 Flask-SQLAlchemy
 sagemaker
+gunicorn  
