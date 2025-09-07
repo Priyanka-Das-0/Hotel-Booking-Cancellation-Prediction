@@ -6,7 +6,7 @@ import boto3
 import json
 
 # Initialize the flask app
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../Frontend' )
 
 
 # --- SageMaker Endpoint Configuration ---
